@@ -1,2 +1,90 @@
 # Not-Conway-s-game-of-Life
 Not Conway's Game of life made by me for a school project, made in java (i hate java)
+
+Not Conway's Game of Life Rules
+
+(The Three Complex Rules)
+{
+  Rule 1: rain Influence, although it's not a direct rule it is affected by the moisture and affects many aspects.
+  
+  Rule 2: fire, it's affected by the rain so it gets put out, it can burst randomly and will leave a dead trail behind. It's also affected by the Temperature.
+  
+  Rule 3: River generation, although this one also isnt a direct rule that affects the simulation it is different every run and is based off perlin noise to give an extra detail to the simulation.
+
+}
+
+- Rain Influence is a value of 0.1f or 0.4f given to each cell.
+	- rain influence is determined if the weather of that cell is rain.
+		
+- Moisture is a perlin noise value that changes through simulation age that affects some chance values.
+- Fertility is a 2nd perlin noise value that changes through simulation age that affects some chance values.
+- Temperature is a 3rd perlin noise value that changes through simulation age that affects some chance values.
+
+- There are 3 weather types.
+
+- (None, Rain, Fire)
+
+- Rain Rules
+
+	- Rule 1: if there is a lake nearby, and passes a chance of (10% * Moisture)
+	
+	- Rule 2: if there is a other rain nearby, and passes a chance of (80% * Moisture)
+		
+- Fire Rules
+
+	- Rule 3: if there is less than 2 lake cells nearby, and passes a chance of (0.01% * Temperature)
+	
+	- Rule 4: if there is less than 2 lake cells nearby, and passes a chance of (90% * Temperature)
+
+- There are 6 Cell Types
+
+- (Sand, Dirt, Grass, Forest, DenseForest, Lake)
+
+- Sand Rules
+
+	- Rule 5: if there are 2 or more Lake Cells touching that sand cell, the current cell is at least 3 generations old and passes a Chance of (30% * Moisture + RainInfluence)
+		the Sand will turn to Dirt.
+		
+	- Rule 6: if the Cell is at least 5 generations old, and pases a chance of (25% * Fertility + RainInfluence)
+		the Sand will turn to Dirt.
+		
+- Dirt Rules
+
+	- Rule 7: if the cell is 4  or more generations old, and passes a chance of (30% * Fertility + Board[y][x].RainInfluence)
+		the Dirt will turn to Grass.
+		
+	- Rule 8: if the there is 4 or more sand cells nearby, no lake cells, is 9 or more generations old, and passes a chance of (40% * Temperature + RainInfluence) 
+		the Dirt will turn to Sand.
+
+- Grass Rules
+
+	- Rule 9: if there are 3 or more nearby Forest cells, the cell is more than 6 generations old, and passes a chance of (25% * Fertility + RainInfluence)
+		the Grass will turn to Forest.
+		
+	- Rule 10: if there are 5 or more nearby Grass cells, the cell is more than 6 generations old, and passes a chance of (25% * Fertility + RainInfluence)
+		the Grass will turn to Forest.
+		
+- Forest Rules
+
+	- Rule 11: if there are 7 or more nearby Forest cells, the cell is more than 25 generations old, and passes a chance of (30% * Fertility + RainInfluence)
+		the Forest will turn to DenseForest.
+		
+	- Rule 12: if there are 4 or more nearby Sand + Dirt cells, the Cell is at least 6 generations old, and pases a chance of (25% * Temperature + RainInfluence)
+		the Forest will turn to Grass.
+		
+- DenseForest Rules
+
+	- Rule 13: if there are 5 or more DenseForest Cells nearby, the current cell is at least 12 generations old and passes a Chance of (30% * Moisture + RainInfluence)
+		the DenseForest will turn to a Forest (due to over crowding and death of some of the trees).
+		
+	- Rule 14: if the Cell is nearby 2 or more Lake cells, and passes a chance of (40% * Moisture + RainInfluence)
+		the DenseForest will turn to Grass.
+		
+- Weather Affects Rules
+	
+	- Rule 15: if the cells current weather is Fire, and it passes a chance of (15% * Moisture), and is at least 10 generations old.
+		the fire will "kill" any green there and turn to Dirt.
+		
+	- Rule 16: if the cells current weather is Fire, and it passes a chance of (25%), and is at least 10 generations old.
+		the fire will "kill" any green there and turn to Sand (due to the lack of moisture to water it).
+		
